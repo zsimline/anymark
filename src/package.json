@@ -1,0 +1,23 @@
+{
+  "name": "mihan",
+  "version": "1.0.0",
+  "description": "Tell us our secret",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zsimline/mihan.git"
+  },
+  "author": "zsimline",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/zsimline/mihan/issues"
+  },
+  "homepage": "https://github.com/zsimline/mihan#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "electron": "^7.1.2"
+  }
+}
