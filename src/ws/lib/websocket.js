@@ -45,7 +45,7 @@ class WebSocket extends EventEmitter {
 
     this.readyState = WebSocket.CONNECTING;
     this.protocol = '';
-
+    
     this._binaryType = BINARY_TYPES[0];
     this._closeFrameReceived = false;
     this._closeFrameSent = false;
@@ -464,7 +464,7 @@ function initAsClient(websocket, address, protocols, options) {
   if (!protocolVersions.includes(opts.protocolVersion)) {
     throw new RangeError(
       `Unsupported protocol version: ${opts.protocolVersion} ` +
-        `(supported versions: ${protocolVersions.join(', ')})`
+      `(supported versions: ${protocolVersions.join(', ')})`
     );
   }
 
@@ -595,9 +595,7 @@ function initAsClient(websocket, address, protocols, options) {
 
     req = websocket._req = null;
 
-    const digest = createHash('sha1')
-      .update(key + GUID)
-      .digest('base64');
+    const digest = createHash('sha1').update(key + GUID).digest('base64');
 
     if (res.headers['sec-websocket-accept'] !== digest) {
       abortHandshake(websocket, socket, 'Invalid Sec-WebSocket-Accept header');
@@ -728,7 +726,7 @@ function sendAfterClose(websocket, data, cb) {
   if (cb) {
     const err = new Error(
       `WebSocket is not open: readyState ${websocket.readyState} ` +
-        `(${readyStates[websocket.readyState]})`
+      `(${readyStates[websocket.readyState]})`
     );
     cb(err);
   }
