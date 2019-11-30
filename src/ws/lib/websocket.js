@@ -27,6 +27,7 @@ const readyStates = ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'];
 const protocolVersions = [8, 13];
 const closeTimeout = 30 * 1000;
 
+
 /**
  * Class representing a WebSocket.
  *
