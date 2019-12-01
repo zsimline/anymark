@@ -1,7 +1,4 @@
-const num1 = 5;
-
-const num2 = 8;
-
-module.exports = {
-  num1, num2
+function v8() {
+  var a = 1;
+  var b = 5;
 }
