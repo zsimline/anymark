@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "removeComments": true
+  },
+  "files": [
+    "service/config.ts",
+    "service/websocket-server.ts"
+  ]
+}

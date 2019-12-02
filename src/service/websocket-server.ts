@@ -3,14 +3,17 @@ import * as http from 'http';
 import * as net from 'net'
 import { createHash } from 'crypto';
 
-import { GUID } from './config';
+import { GUID } from './config'
+
+import * as config from './config'
+
 
 
 const keyRegex = /^[+/0-9A-Za-z]{22}==$/;
 const kUsedByWebSocketServer = Symbol('kUsedByWebSocketServer');
 
 
-interface opts { 
+interface WebSocketOpts {
   host?: string,
   port?: number,
   server?: http.Server,
@@ -23,14 +26,13 @@ interface opts {
 };
 
 
-
 /**
  * Class representing a WebSocket server.
  */
 class WebSocketServer extends EventEmitter {
   private httpServer: http.Server = null;
   private events: object = null;
-  private opts: opts = null;
+  private opts: WebSocketOpts = null;
   private clients: Set<net.Socket> = null;
 
   /**
@@ -48,11 +50,12 @@ class WebSocketServer extends EventEmitter {
    *  `options.verifyClient` A hook to reject connections
    * @param callback A listener for the `listening` event
    */
-  constructor(options: object, callback: ()=>void) {
+  constructor(options: WebSocketOpts, callback: ()=>void) {
     super();
+    
     const opts = {
-      host: null,
-      port: null,
+      host: 'localhost',
+      port: 1722,
       server: null,
       path: null,
       maxPayload: 100 * 1024 * 1024,
@@ -60,7 +63,7 @@ class WebSocketServer extends EventEmitter {
       handleProtocols: null,
       verifyClient: null,
       backlog: null,
-      ...options
+      ...config.WebSocketOpts
     };
     this.opts = opts;
     
@@ -94,7 +97,13 @@ class WebSocketServer extends EventEmitter {
           'The HTTP/S server is already being used by another WebSocket server'
         );
       }
+      options.server[kUsedByWebSocketServer] = true;
+      //this._server = options.server;
     }
+
+    //if (options.perMessageDeflate === true) options.perMessageDeflate = {};
+    //if (options.clientTracking) this.clients = new Set();
+    //this.options = options;
 
     if (this.httpServer) {
       this.events = {
@@ -165,7 +174,7 @@ class WebSocketServer extends EventEmitter {
         : false;
     const version =+ req.headers['sec-websocket-version'];
     const extensions = {};
-
+    console.log(key);
     if (
       req.method !== 'GET' ||
       req.headers.upgrade.toLowerCase() !== 'websocket' ||
@@ -252,7 +261,7 @@ class WebSocketServer extends EventEmitter {
       `Sec-WebSocket-Accept: ${digest}`
     ];
 
-    const ws = new WebSocket(null);
+    //const ws = new WebSocket(null);
     
       
     //let protocol = req.headers['sec-websocket-protocol'];
@@ -331,5 +340,10 @@ class WebSocketServer extends EventEmitter {
     socket.destroy();
   }
 }
+
+const d = new WebSocketServer({
+  host: '172.17.5.144',
+  port: 1722
+}, ()=>{});
 
 export {}

@@ -1,14 +1,9 @@
-const http = require('http')
+const YAML = require('js-yaml')
+const fs  = require('fs')
 
-httpServer = http.createServer((req, res) => {
-  const body = http.STATUS_CODES[426];
-  console.log(req.headers);
-
-  res.writeHead(426, {
-    'Content-Length': body.length,
-    'Content-Type': 'text/plain'
-  });
-  res.end(body);
-});
-
-httpServer.listen(1722, '172.17.5.144');
+try {
+  var doc = YAML.safeLoad(fs.readFileSync('./config.yml'), 'utf8');
+  console.log(doc);
+} catch (e) {
+  console.log(e);
+}
