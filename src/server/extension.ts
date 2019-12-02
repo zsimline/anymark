@@ -1,5 +1,3 @@
-'use strict';
-
 //
 // Allowed token characters:
 //
@@ -22,6 +20,7 @@ const tokenChars = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // 96 - 111
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0 // 112 - 127
 ];
+
 
 /**
  * Adds an offer to the map of extension offers or a parameter to the map of
@@ -219,5 +218,3 @@ function format(extensions) {
     })
     .join(', ');
 }
-
-module.exports = { format, parse };

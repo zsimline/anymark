@@ -12,10 +12,9 @@ import { BinaryTypes } from './config'
 
 
 /**
- * Class representing a WebSocket.
- *
+ * Class representing a WebSocket Server.
  */
-class WebSocket extends EventEmitter {
+class WebSocketServer extends EventEmitter {
   //private binaryType: BinaryTypes;
   //private closeFrameReceived: boolean;
   //private closeFrameSent: boolean;
@@ -64,6 +63,3 @@ class WebSocket extends EventEmitter {
   
   }
 }
-
-
-const a = new 

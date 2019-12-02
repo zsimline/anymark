@@ -1,0 +1,3 @@
+http.d.ts
+  [header: string]: string | string[] | undefined;
+
