@@ -5,22 +5,18 @@ import { createHash } from 'crypto';
 
 import { GUID } from './config'
 
-import * as config from './config'
-
-
-
 const keyRegex = /^[+/0-9A-Za-z]{22}==$/;
+
 const kUsedByWebSocketServer = Symbol('kUsedByWebSocketServer');
 
-
-interface WebSocketOpts {
+interface WebSocketServerOpts {
   host?: string,
   port?: number,
   server?: http.Server,
   backlog?: number,
   path?: string,
   maxPayload?: number,
-  perMessageDeflate?: boolean,
+  perMessageDeflate?: object,
   handleProtocols?: Function,
   verifyClient?: Function,
 };
@@ -29,10 +25,10 @@ interface WebSocketOpts {
 /**
  * Class representing a WebSocket server.
  */
-class WebSocketServer extends EventEmitter {
+export class WebSocketServer extends EventEmitter {
   private httpServer: http.Server = null;
   private events: object = null;
-  private opts: WebSocketOpts = null;
+  private opts: WebSocketServerOpts = null;
   private clients: Set<net.Socket> = null;
 
   /**
@@ -50,7 +46,7 @@ class WebSocketServer extends EventEmitter {
    *  `options.verifyClient` A hook to reject connections
    * @param callback A listener for the `listening` event
    */
-  constructor(options: WebSocketOpts, callback: ()=>void) {
+  constructor(options: WebSocketServerOpts, callback: ()=>void) {
     super();
     
     const opts = {
@@ -58,23 +54,30 @@ class WebSocketServer extends EventEmitter {
       port: 1722,
       server: null,
       path: null,
-      maxPayload: 100 * 1024 * 1024,
-      perMessageDeflate: false,
+      maxPayload: 104857600,
+      perMessageDeflate: {},
       handleProtocols: null,
       verifyClient: null,
-      backlog: null,
-      ...config.WebSocketOpts
+      backlog: 128,
+      ...options
     };
     this.opts = opts;
-    
 
-    if (!opts.port && !opts.server) {
-      throw new TypeError(
-        "One of the 'port' or 'server' opts must be specified"
-      );
-    }
-
-    if (opts.port != null) {
+    this.createHttpServer();
+    this.bindEvents();
+  }
+  
+  //
+  private createHttpServer() {
+    if (this.opts.server) {
+      if (this.opts.server[kUsedByWebSocketServer]) {
+        throw new Error(
+          'The HTTP/S server is already being used by another WebSocket server'
+        );
+      }
+      this.opts.server[kUsedByWebSocketServer] = true;
+      this.httpServer = this.opts.server;
+    } else if (this.opts.port != null) {
       this.httpServer = http.createServer((req, res) => {
         const body = http.STATUS_CODES[426];
 
@@ -86,25 +89,19 @@ class WebSocketServer extends EventEmitter {
       });
 
       this.httpServer.listen(
-        opts.port,
-        opts.host,
-        opts.backlog,
-        callback
+        this.opts.port,
+        this.opts.host,
+        this.opts.backlog,
       );
-    } else if (opts.server) {
-      if (opts.server[kUsedByWebSocketServer]) {
-        throw new Error(
-          'The HTTP/S server is already being used by another WebSocket server'
-        );
-      }
-      options.server[kUsedByWebSocketServer] = true;
-      //this._server = options.server;
+    } else {
+      throw new TypeError(
+        "One of the 'port' or 'server' opts must be specified"
+      );
     }
+  }
 
-    //if (options.perMessageDeflate === true) options.perMessageDeflate = {};
-    //if (options.clientTracking) this.clients = new Set();
-    //this.options = options;
-
+  //
+  private bindEvents() {
     if (this.httpServer) {
       this.events = {
         'listening': this.emit.bind(this, 'listening'),
@@ -119,7 +116,7 @@ class WebSocketServer extends EventEmitter {
       this.addListeners();
     }
   }
-  
+
   // 
   private addListeners() {
     for (const event of Object.keys(this.events)) {
@@ -340,10 +337,3 @@ class WebSocketServer extends EventEmitter {
     socket.destroy();
   }
 }
-
-const d = new WebSocketServer({
-  host: '172.17.5.144',
-  port: 1722
-}, ()=>{});
-
-export {}

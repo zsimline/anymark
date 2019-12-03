@@ -4,7 +4,6 @@ const events_1 = require("events");
 const http = require("http");
 const crypto_1 = require("crypto");
 const config_1 = require("./config");
-const config = require("./config");
 const keyRegex = /^[+/0-9A-Za-z]{22}==$/;
 const kUsedByWebSocketServer = Symbol('kUsedByWebSocketServer');
 ;
@@ -15,12 +14,15 @@ class WebSocketServer extends events_1.EventEmitter {
         this.events = null;
         this.opts = null;
         this.clients = null;
-        const opts = Object.assign({ host: 'localhost', port: 1722, server: null, path: null, maxPayload: 100 * 1024 * 1024, perMessageDeflate: false, handleProtocols: null, verifyClient: null, backlog: null }, config.WebSocketOpts);
+        const opts = Object.assign({ host: 'localhost', port: 1722, server: null, path: null, maxPayload: 104857600, perMessageDeflate: {}, handleProtocols: null, verifyClient: null, backlog: 128 }, options);
         this.opts = opts;
-        if (!opts.port && !opts.server) {
-            throw new TypeError("One of the 'port' or 'server' opts must be specified");
+        if (opts.server) {
+            if (opts.server[kUsedByWebSocketServer]) {
+                throw new Error('The HTTP/S server is already being used by another WebSocket server');
+            }
+            options.server[kUsedByWebSocketServer] = true;
         }
-        if (opts.port != null) {
+        else if (opts.port != null) {
             this.httpServer = http.createServer((req, res) => {
                 const body = http.STATUS_CODES[426];
                 res.writeHead(426, {
@@ -31,11 +33,8 @@ class WebSocketServer extends events_1.EventEmitter {
             });
             this.httpServer.listen(opts.port, opts.host, opts.backlog, callback);
         }
-        else if (opts.server) {
-            if (opts.server[kUsedByWebSocketServer]) {
-                throw new Error('The HTTP/S server is already being used by another WebSocket server');
-            }
-            options.server[kUsedByWebSocketServer] = true;
+        else {
+            throw new TypeError("One of the 'port' or 'server' opts must be specified");
         }
         if (this.httpServer) {
             this.events = {
@@ -121,7 +120,4 @@ class WebSocketServer extends events_1.EventEmitter {
         socket.destroy();
     }
 }
-const d = new WebSocketServer({
-    host: '172.17.5.144',
-    port: 1722
-}, () => { });
+exports.WebSocketServer = WebSocketServer;

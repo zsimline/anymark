@@ -19,5 +19,5 @@ const configurations = generateConfiguration();
 // ##################################
 export const GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
-export const WebSocketOpts = configurations.options;
+export const webSocketServerOpts = configurations.options;
 
