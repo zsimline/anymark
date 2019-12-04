@@ -8,6 +8,7 @@
   "files": [
     "service/index.ts",
     "service/config.ts",
-    "service/websocket-server.ts"
+    "service/websocket-server.ts",
+    "service/async-limiter.ts"
   ]
 }

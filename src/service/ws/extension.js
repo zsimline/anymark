@@ -1,3 +1,5 @@
+'use strict';
+
 //
 // Allowed token characters:
 //
@@ -21,7 +23,6 @@ const tokenChars = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0 // 112 - 127
 ];
 
-
 /**
  * Adds an offer to the map of extension offers or a parameter to the map of
  * parameters.
@@ -40,11 +41,11 @@ function push(dest, name, elem) {
 /**
  * Parses the `Sec-WebSocket-Extensions` header into an object.
  *
- * @param header The field value of the header
+ * @param {String} header The field value of the header
  * @return {Object} The parsed object
  * @public
  */
-function parse(header: string) {
+function parse(header) {
   const offers = Object.create(null);
 
   if (header === undefined || header === '') return offers;
@@ -218,3 +219,5 @@ function format(extensions) {
     })
     .join(', ');
 }
+
+module.exports = { format, parse };

@@ -79,15 +79,11 @@ class WebSocketServer extends events_1.EventEmitter {
     }
     handleUpgrade(req, socket, head, cb) {
         socket.on('error', this.socketOnError);
-        const key = req.headers['sec-websocket-key'] !== undefined ?
-            req.headers['sec-websocket-key'].trim()
-            : false;
+        const key = req.headers['sec-websocket-key'].trim();
         const version = +req.headers['sec-websocket-version'];
         const extensions = {};
-        console.log(key);
         if (req.method !== 'GET' ||
             req.headers.upgrade.toLowerCase() !== 'websocket' ||
-            !key ||
             !keyRegex.test(key) ||
             (version !== 8 && version !== 13) ||
             !this.shouldHandle(req)) {

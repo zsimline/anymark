@@ -4,23 +4,25 @@ import * as net from 'net'
 import { createHash } from 'crypto';
 
 import { GUID } from './config'
+import { PerMessageDeflate } from './permessage-deflate'
+import { PerMessageDeflateOpts } from './permessage-deflate'
 
 const keyRegex = /^[+/0-9A-Za-z]{22}==$/;
 
 const kUsedByWebSocketServer = Symbol('kUsedByWebSocketServer');
 
-interface WebSocketServerOpts {
+
+export interface WebSocketServerOpts {
   host?: string,
   port?: number,
   server?: http.Server,
   backlog?: number,
   path?: string,
   maxPayload?: number,
-  perMessageDeflate?: object,
+  perMessageDeflate?: PerMessageDeflateOpts,
   handleProtocols?: Function,
   verifyClient?: Function,
 };
-
 
 /**
  * Class representing a WebSocket server.
@@ -187,10 +189,9 @@ export class WebSocketServer extends EventEmitter {
       return this.abortHandshake(socket, 400);
     }
 
-    /*if (this.opts.perMessageDeflate) {
+    if (this.opts.perMessageDeflate) {
       const perMessageDeflate = new PerMessageDeflate(
         this.opts.perMessageDeflate,
-        true,
         this.opts.maxPayload
       );
 
@@ -202,9 +203,9 @@ export class WebSocketServer extends EventEmitter {
           extensions[PerMessageDeflate.extensionName] = perMessageDeflate;
         }
       } catch (err) {
-        return abortHandshake(socket, 400);
+        return this.abortHandshake(socket, 400);
       }
-    }*/
+    }
     
     this.completeUpgrade(key, extensions, req, socket, head, cb);
   }

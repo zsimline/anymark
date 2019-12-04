@@ -1,11 +1,19 @@
+/**
+ * Asynchronous limiter implementation.
+ */
 export class AsyncLimiter {
   private concurrency: number;
   private pending: number;
   private jobs: Array<Function>;
   private cbs: Array<Function>;
   
+  /**
+   * Create an `AsyncLimiter` instance.
+   * 
+   * @param concurrency Maximum number of concurrency
+   */
   constructor(concurrency?: number) {
-    this.concurrency = concurrency | Infinity;
+    this.concurrency = concurrency || Infinity;
     this.pending = 0;
     this.jobs = [];
     this.cbs = [];
@@ -27,8 +35,7 @@ export class AsyncLimiter {
 
   public onDone(cb: Function) {
     this.cbs.push(cb);
-    this.run();
-  };
+  }
 
   private run() {
     if (this.pending === this.concurrency) {
@@ -37,18 +44,10 @@ export class AsyncLimiter {
     if (this.jobs.length) {
       const job = this.jobs.shift();
       this.pending++;
-      
-      new Promise(resolve => {
-        job();
-        resolve();
-      }).catch(err => {
-        console.error(err);
-      }).finally(() => {
+      job(() => {
         this.pending--;
         this.run();
-      })
-
-      this.run();
+      });
     }
 
     if (this.pending === 0) {
