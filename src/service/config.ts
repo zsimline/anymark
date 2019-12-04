@@ -12,7 +12,6 @@ function generateConfiguration() {
 
 // 
 const configurations = generateConfiguration();
-console.log(configurations);
 
 // ##################################
 //  System Configuration.

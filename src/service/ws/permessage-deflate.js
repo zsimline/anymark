@@ -1,6 +1,6 @@
 'use strict';
 
-const Limiter = require('async-limiter');
+
 const zlib = require('zlib');
 
 const bufferUtil = require('./buffer-util');
@@ -15,19 +15,14 @@ const kCallback = Symbol('callback');
 const kBuffers = Symbol('buffers');
 const kError = Symbol('error');
 
-//
-// We limit zlib concurrency, which prevents severe memory fragmentation
-// as documented in https://github.com/nodejs/node/issues/8871#issuecomment-250915913
-// and https://github.com/websockets/ws/issues/1202
-//
-// Intentionally global; it's the global thread pool that's an issue.
-//
 let zlibLimiter;
 
 /**
  * permessage-deflate implementation.
  */
 class PerMessageDeflate {
+  
+
   /**
    * Creates a PerMessageDeflate instance.
    *

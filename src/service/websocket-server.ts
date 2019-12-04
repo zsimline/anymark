@@ -172,18 +172,14 @@ export class WebSocketServer extends EventEmitter {
   public handleUpgrade(req: http.IncomingMessage, socket: net.Socket,
                        head: Buffer, cb:Function) {
     socket.on('error', this.socketOnError);
-    console.log(req.headers);
-    const key =
-      req.headers['sec-websocket-key'] !== undefined ?
-        req.headers['sec-websocket-key'].trim() 
-        : false;
+
+    const key = req.headers['sec-websocket-key'].trim();
     const version =+ req.headers['sec-websocket-version'];
     const extensions = {};
-    console.log(key);
+
     if (
       req.method !== 'GET' ||
       req.headers.upgrade.toLowerCase() !== 'websocket' ||
-      !key ||
       !keyRegex.test(key) ||
       (version !== 8 && version !== 13) ||
       !this.shouldHandle(req)
@@ -209,32 +205,7 @@ export class WebSocketServer extends EventEmitter {
         return abortHandshake(socket, 400);
       }
     }*/
-
-    /*
-    // Optionally call external client verification handler.
-    if (this.opts.verifyClient) {
-      const info = {
-        origin:
-          req.headers[`${version === 8 ? 'sec-websocket-origin' : 'origin'}`],
-        secure: !!(req.connection.authorized || req.connection.encrypted),
-        req
-      };
-
-      if (this.opts.verifyClient.length === 2) {
-        this.opts.verifyClient(info, (verified, code, message, headers) => {
-          if (!verified) {
-            return this.abortHandshake(socket, code || 401, message, headers);
-          }
-
-          this.completeUpgrade(key, extensions, req, socket, head, cb);
-        });
-        return;
-      }
-
-      if (!this.opts.verifyClient(info)) return this.abortHandshake(socket, 401);
-    }
-    */
-
+    
     this.completeUpgrade(key, extensions, req, socket, head, cb);
   }
 
