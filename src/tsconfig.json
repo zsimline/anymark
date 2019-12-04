@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
-    "removeComments": true
+    "removeComments": true,
+    "outDir": "service/dist"
   },
   "files": [
     "service/index.ts",

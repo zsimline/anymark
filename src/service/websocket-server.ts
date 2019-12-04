@@ -48,7 +48,7 @@ export class WebSocketServer extends EventEmitter {
    */
   constructor(options: WebSocketServerOpts, callback: ()=>void) {
     super();
-    
+
     const opts = {
       host: 'localhost',
       port: 1722,
@@ -67,7 +67,9 @@ export class WebSocketServer extends EventEmitter {
     this.bindEvents();
   }
   
-  //
+  /**
+   * Initialize `this.httpServer`
+   */ 
   private createHttpServer() {
     if (this.opts.server) {
       if (this.opts.server[kUsedByWebSocketServer]) {
@@ -77,7 +79,7 @@ export class WebSocketServer extends EventEmitter {
       }
       this.opts.server[kUsedByWebSocketServer] = true;
       this.httpServer = this.opts.server;
-    } else if (this.opts.port != null) {
+    } else if (this.opts.port) {
       this.httpServer = http.createServer((req, res) => {
         const body = http.STATUS_CODES[426];
 
@@ -100,7 +102,9 @@ export class WebSocketServer extends EventEmitter {
     }
   }
 
-  //
+  /**
+   * Initialize `this.events`,
+   */
   private bindEvents() {
     if (this.httpServer) {
       this.events = {
@@ -117,14 +121,18 @@ export class WebSocketServer extends EventEmitter {
     }
   }
 
-  // 
+  /**
+   * Binding events for `this.httpServer`
+   */
   private addListeners() {
     for (const event of Object.keys(this.events)) {
       this.httpServer.on(event, this.events[event]);
     }
-  } 
+  }
 
-  // 
+  /**
+   * Remove all events on `this.httpServer` 
+   */
   private removeListeners() {
     for (const event of Object.keys(this.events)) {
       this.httpServer.removeListener(event, this.events[event]);
@@ -164,10 +172,10 @@ export class WebSocketServer extends EventEmitter {
   public handleUpgrade(req: http.IncomingMessage, socket: net.Socket,
                        head: Buffer, cb:Function) {
     socket.on('error', this.socketOnError);
-    
+    console.log(req.headers);
     const key =
       req.headers['sec-websocket-key'] !== undefined ?
-        req.headers['sec-websocket-key'].trim()
+        req.headers['sec-websocket-key'].trim() 
         : false;
     const version =+ req.headers['sec-websocket-version'];
     const extensions = {};

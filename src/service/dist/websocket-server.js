@@ -16,13 +16,18 @@ class WebSocketServer extends events_1.EventEmitter {
         this.clients = null;
         const opts = Object.assign({ host: 'localhost', port: 1722, server: null, path: null, maxPayload: 104857600, perMessageDeflate: {}, handleProtocols: null, verifyClient: null, backlog: 128 }, options);
         this.opts = opts;
-        if (opts.server) {
-            if (opts.server[kUsedByWebSocketServer]) {
+        this.createHttpServer();
+        this.bindEvents();
+    }
+    createHttpServer() {
+        if (this.opts.server) {
+            if (this.opts.server[kUsedByWebSocketServer]) {
                 throw new Error('The HTTP/S server is already being used by another WebSocket server');
             }
-            options.server[kUsedByWebSocketServer] = true;
+            this.opts.server[kUsedByWebSocketServer] = true;
+            this.httpServer = this.opts.server;
         }
-        else if (opts.port != null) {
+        else if (this.opts.port) {
             this.httpServer = http.createServer((req, res) => {
                 const body = http.STATUS_CODES[426];
                 res.writeHead(426, {
@@ -31,11 +36,13 @@ class WebSocketServer extends events_1.EventEmitter {
                 });
                 res.end(body);
             });
-            this.httpServer.listen(opts.port, opts.host, opts.backlog, callback);
+            this.httpServer.listen(this.opts.port, this.opts.host, this.opts.backlog);
         }
         else {
             throw new TypeError("One of the 'port' or 'server' opts must be specified");
         }
+    }
+    bindEvents() {
         if (this.httpServer) {
             this.events = {
                 'listening': this.emit.bind(this, 'listening'),
