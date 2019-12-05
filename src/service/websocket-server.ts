@@ -51,7 +51,7 @@ export class WebSocketServer extends EventEmitter {
   constructor(options: WebSocketServerOpts, callback: ()=>void) {
     super();
 
-    const opts = {
+    this.opts = {
       host: 'localhost',
       port: 1722,
       server: null,
@@ -63,7 +63,6 @@ export class WebSocketServer extends EventEmitter {
       backlog: 128,
       ...options
     };
-    this.opts = opts;
 
     this.createHttpServer();
     this.bindEvents();
