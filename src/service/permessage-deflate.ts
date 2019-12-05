@@ -7,9 +7,17 @@ export interface PerMessageDeflateOpts {
   threshold?: number;
   serverNoContextTakeover?: boolean;
   clientNoContextTakeover?: boolean
-  serverMaxWindowBits?: boolean;
-  clientMaxWindowBits?: boolean;
+  serverMaxWindowBits?: number;
+  clientMaxWindowBits?: number;
 }
+
+interface NegotiationParameters {
+  server_no_context_takeover?: boolean;
+  client_no_context_takeover?: boolean;
+  server_max_window_bits?: number;
+  client_max_window_bits?: number;
+};
+
 
 /**
  * permessage-deflate implementation.
@@ -60,16 +68,40 @@ export class PerMessageDeflate {
     return 'permessage-deflate';
   }
 
+
+  /**
+   * Extracting parameters from `Sec-WebSocket-Extensions`
+   * 
+   * @param 
+   */
+  parseExtensionHeader(header: string) {
+    const plans = [];
+    const negotiationPlans = header.split(', ');
+    negotiationPlans.forEach(plan => {
+      const negotiationOpts = plan.split('; ');
+      
+
+      negotiationOpts.forEach(opt => {
+        if (opt === 'permessage-deflate') {
+          'server_max_window_bits'
+        }
+
+      })
+    })
+
+    
+
+  //"permessage-deflate; client_max_window_bits; server_max_window_bits=10, permessage-deflate; client_max_window_bits"
+
+  }
+
+
+
   /**
    * Create an extension negotiation offer.
    */
   public offer() {
-    const params = {
-      server_no_context_takeover: false,
-      client_no_context_takeover: false,
-      server_max_window_bits: false,
-      client_max_window_bits: false,
-    };
+    const params: NegotiationParameters = {};
 
     if (this.opts.serverNoContextTakeover) {
       params.server_no_context_takeover = true;
@@ -83,7 +115,7 @@ export class PerMessageDeflate {
     if (this.opts.clientMaxWindowBits) {
       params.client_max_window_bits = this.opts.clientMaxWindowBits;
     } else if (this.opts.clientMaxWindowBits == null) {
-      params.client_max_window_bits = true;
+      params.client_max_window_bits = 0;
     }
 
     return params;
@@ -117,26 +149,27 @@ export class PerMessageDeflate {
         }
 
         value = value[0];
-        if (key === 'client_max_window_bits') {
-          if (value !== true) {
-            const num = +value;
-            if (!Number.isInteger(num) || num < 8 || num > 15) {
+        switch (key) {
+          case 'client_max_window_bits': {
+            if (value !== 0) {
+              const num = +value;
+              if (num < 8 || num > 15) {
+                // TODO
+              }
+              value = num;
+            } break;
+          };
+          case 'client_no_context_takeover': {
+            if (value !== true) {
               throw new TypeError(
                 `Invalid value for parameter "${key}": ${value}`
               );
-            }
-            value = num;
+            } break;
           }
-        } else if ( key === 'client_no_context_takeover') {
-          if (value !== true) {
-            throw new TypeError(
-              `Invalid value for parameter "${key}": ${value}`
-            );
+          default: {
+            // TODO
           }
-        } else {
-          throw new Error(`Unknown parameter "${key}"`);
         }
-
         params[key] = value;
       });
     });
@@ -147,8 +180,8 @@ export class PerMessageDeflate {
   /**
    *  Accept an extension negotiation offer.
    *
-   * @param {Array} offers The extension negotiation offers
-   * @return {Object} Accepted configuration
+   * @param offers The extension negotiation offers
+   * @return Accepted configuration
    */
   private acceptAsServer(offers) {
     const opts = this.opts;
@@ -157,12 +190,11 @@ export class PerMessageDeflate {
         (opts.serverNoContextTakeover === false &&
           params.server_no_context_takeover) ||
         (params.server_max_window_bits &&
-          (opts.serverMaxWindowBits === false ||
-            (typeof opts.serverMaxWindowBits === 'number' &&
-              opts.serverMaxWindowBits > params.server_max_window_bits))) ||
-        (typeof opts.clientMaxWindowBits === 'number' &&
+          (opts.serverMaxWindowBits === 0 || 
+            ( opts.serverMaxWindowBits > params.server_max_window_bits))) ||
+        (typeof opts.clientMaxWindowBits === 'number' && 
           !params.client_max_window_bits)
-      ) {
+        ) {
         return false;
       }
 
@@ -179,21 +211,8 @@ export class PerMessageDeflate {
     if (opts.clientNoContextTakeover) {
       accepted.client_no_context_takeover = true;
     }
-    if (typeof opts.serverMaxWindowBits === 'number') {
-      accepted.server_max_window_bits = opts.serverMaxWindowBits;
-    }
-    if (typeof opts.clientMaxWindowBits === 'number') {
-      accepted.client_max_window_bits = opts.clientMaxWindowBits;
-    } else if (
-      accepted.client_max_window_bits === true ||
-      opts.clientMaxWindowBits === false
-    ) {
-      delete accepted.client_max_window_bits;
-    }
-
+    accepted.server_max_window_bits = opts.serverMaxWindowBits;
+    accepted.client_max_window_bits = opts.clientMaxWindowBits;
     return accepted;
   }
-
-
-
 }

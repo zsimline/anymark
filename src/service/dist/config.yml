@@ -7,4 +7,3 @@ server_opts:
   handleProtocols: null
   verifyClient: null
   backlog: 128
-
