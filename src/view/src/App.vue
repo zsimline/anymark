@@ -1,28 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <msg-frame></msg-frame>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import MsgFrame from "./components/MsgFrame.vue";
 
 export default {
+
   name: 'app',
   components: {
-    HelloWorld
+    MsgFrame,
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0px;
+  font-size: 16px;
+  font-family: "WenQuanYi"
+}
+
+.nochoose {
+  user-select: none;
 }
 </style>

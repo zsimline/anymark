@@ -22,3 +22,18 @@ websocket-server.ts
 
       if (!this.opts.verifyClient(info)) return this.abortHandshake(socket, 401);
     }
+
+
+/** Center vertically */
+.v-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/** Center horizontal */
+.h-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
