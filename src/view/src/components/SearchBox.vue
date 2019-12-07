@@ -14,6 +14,7 @@ export default {
 
 #search-box {
   width: 100%;
+  margin-bottom: 0.8rem;
 }
 
 #search-box input {
@@ -23,6 +24,6 @@ export default {
   margin: auto;
   padding-left: 10px;
   border-radius: 3px;
-  background-color: #eee;
+  background-color: var(--mask-color);
 }
 </style>
