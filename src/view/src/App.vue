@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <msg-frame></msg-frame>
+    <msg-frame ref="msgFrame"></msg-frame>
     <chat-area></chat-area>
   </div>
 </template>
@@ -10,12 +10,13 @@ import MsgFrame from "./components/MsgFrame.vue";
 import ChatArea from "./components/ChatArea.vue";
 
 export default {
-
   name: 'app',
   components: {
     MsgFrame,
     ChatArea
   },
+  methods: {
+  }
 }
 </script>
 
@@ -28,7 +29,7 @@ export default {
 
 body {
   margin: 0px;
-  font-family: "WenQuanYi"
+  font-family: "WenQuanYi";
 }
 
 .nochoose {
@@ -43,8 +44,4 @@ input {
 #app {
   display: flex;
 }
-
-
-
-
 </style>
