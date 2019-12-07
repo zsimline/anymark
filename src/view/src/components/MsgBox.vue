@@ -25,6 +25,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   user-select: none;
+  overflow: hidden;
 }
 
 .msg-box-l {
@@ -53,6 +54,5 @@ export default {
   text-overflow: ellipsis;
   color: #444;
   font-size: 14px;
-  
 }
 </style>

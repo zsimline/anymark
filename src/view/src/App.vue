@@ -26,4 +26,11 @@ body {
 .nochoose {
   user-select: none;
 }
+
+input {
+  border: none;
+  outline: none;
+}
+
+
 </style>
