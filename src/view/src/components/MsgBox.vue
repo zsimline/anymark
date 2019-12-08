@@ -8,7 +8,7 @@
     </div>
     <div class="msg-box-r">
       <h3 class="msg-title">开发项目组</h3>
-      <p class="msg-summary">最新公告：请组xxx内开发人员与今晚九点</p>
+      <div class="msg-summary">最新公告：请组内开发人员于今晚九点请组内开发人员与今晚九点 </div>
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@ export default {
   box-sizing: border-box;
   padding: 0.8rem 0rem;
   user-select: none;
-  overflow: hidden;
   cursor: pointer;
 }
 .msg-box:hover {
@@ -55,7 +54,8 @@ export default {
   box-sizing: border-box;
 }
 .msg-box-r {
-  flex: 0 0 auto;
+  width: 0px;
+  flex: 1 0 auto;
 }
 
 .avatar {
@@ -70,7 +70,6 @@ export default {
 }
 
 .msg-summary {
-  width: 90%;
   font-size: 1.4rem;
   line-height: 2.2rem;
   margin: 0px;

@@ -6,22 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    div {
-      width: 200px;
-      height: 200px;
-      overflow: scroll;
+    body {
+      margin: 0px;
+    }
+    #parent {
+      width: 40%;
+      display: flex;
+    }
+    #child1 {
+      flex: 0 0 180px;
+      overflow: auto;
+      background-color: chartreuse;
+    }
+    #child2 {
+      flex: 0 1 auto;
+      white-space: nowrap;
+      overflow: hidden;
+      background-color: tomato;
     }
   </style>
 </head>
 <body>
-  <div>
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
-    我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人我们是共产主义接班人
+  <div id="parent">
+    <div id="child1">This is child 1</div>
+    <div id="child2">This is child 2This is child 2This is child 2This is child 2This is child 2This is child 2</div>
   </div>
 </body>
 </html>

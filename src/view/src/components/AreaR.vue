@@ -13,6 +13,7 @@ export default {
 <style>
 
 #chat-area {
+  user-select: none;
   flex: auto;
   display: flex;
 }

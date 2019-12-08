@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <msg-frame ref="msgFrame"></msg-frame>
-    <chat-area></chat-area>
+    <area-l></area-l>
+    <area-r></area-r>
   </div>
 </template>
 
-<script lang="ts">
-import MsgFrame from "./components/MsgFrame.vue";
-import ChatArea from "./components/ChatArea.vue";
+<script>
+import AreaL from "./components/AreaL.vue"
+import AreaR from "./components/AreaR.vue";
 
 export default {
   name: 'app',
   components: {
-    MsgFrame,
-    ChatArea
+    AreaL,
+    AreaR
   },
   methods: {
   }
@@ -30,6 +30,7 @@ export default {
 body {
   margin: 0px;
   font-family: "WenQuanYi";
+  overflow: hidden;
 }
 
 .nochoose {
@@ -44,4 +45,5 @@ input {
 #app {
   display: flex;
 }
+
 </style>
