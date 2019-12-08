@@ -1,14 +1,14 @@
 <template>
   <div id="area-l" :style="{ width: myWidth }">
     <search-box></search-box>
-    <msg-frame></msg-frame>
+    <msg-list></msg-list>
     <div class="split-line" @mousedown="resize"></div>
   </div>
 </template>
 
 <script>
 import SearchBox from './SearchBox.vue'
-import MsgFrame from "./MsgFrame.vue";
+import MsgList from "./MsgList.vue";
 
 export default {
   data: function() {
@@ -33,7 +33,7 @@ export default {
 
   components: {
     SearchBox,
-    MsgFrame
+    MsgList
   }
 }
 </script>

@@ -1,21 +1,26 @@
 <template>
   <div id="chat-area">
-    xxxxx
+    <msg-frame></msg-frame>
   </div>
 </template>
 
 <script>
+import MsgFrame from './MsgFrame.vue'
+
 export default {
 
+  components: {
+    MsgFrame
+  }
 }
 </script>
 
 <style>
 
 #chat-area {
-  user-select: none;
   flex: auto;
   display: flex;
+  user-select: none;
 }
 
 

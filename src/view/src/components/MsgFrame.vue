@@ -1,41 +1,22 @@
 <template>
   <div id="msg-frame">
-    <msg-box></msg-box>
+    
   </div>
 </template>
 
-<script lang="ts">
-import MsgBox from './MsgBox.vue'
-
+<script>
 export default {
-  components: {
-    MsgBox,
-  }
+
 }
 </script>
 
 <style>
+
 #msg-frame {
-  height: 100vh;
-  padding: 0.8rem 0rem;
-  position: relative;
-  overflow: hidden;
-}
-#msg-frame:hover {
-  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/images/default-bg-1.jpg');
+  background-size: 100% 100%;
 }
 
-/** Custom scroll bar */
-#msg-frame::-webkit-scrollbar {
-  width: 5px;
-  position: relative;
-}
-#msg-frame::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background-color: transparent;
-}
-#msg-frame::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: rgba(0,0,0,0.4);
-}
 </style>
