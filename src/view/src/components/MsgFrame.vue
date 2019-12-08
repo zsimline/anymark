@@ -14,7 +14,7 @@ export default {
 
 #msg-frame {
   width: 100%;
-  height: 100%;
+  flex: 0 0 86%;
   background-image: url('../assets/images/default-bg-1.jpg');
   background-size: 100% 100%;
 }
