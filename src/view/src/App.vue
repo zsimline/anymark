@@ -25,12 +25,14 @@ export default {
   font-size: 10px;
   --main-color: hsl(195, 68%, 57%);
   --mask-color: hsl(0, 0%, 95%);
+
+  /** Font */
+  --font-size: 14px;
 }
 
 body {
   margin: 0px;
   font-family: "WenQuanYi";
-  overflow: hidden;
 }
 
 .nochoose {

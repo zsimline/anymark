@@ -9,27 +9,54 @@
     body {
       margin: 0px;
     }
-    #parent {
-      width: 40%;
+    .parent {
+      width: 500px;
       display: flex;
+      margin-bottom: 15px;
+      text-align: center;
+      background-color: #eeeeee;
     }
-    #child1 {
-      flex: 0 0 180px;
-      overflow: auto;
-      background-color: chartreuse;
+    .parent:nth-child(1) .child1 {
+      flex-basis: 100px;
+      background-color: #356969
     }
-    #child2 {
-      flex: 0 1 auto;
-      white-space: nowrap;
-      overflow: hidden;
-      background-color: tomato;
+    .parent:nth-child(1) .child2 {
+      flex-basis: 200px;
+      background-color: #369925;
     }
+
+    .parent:nth-child(2) .child1 {
+      flex-basis: 10%;
+      background-color: #356969
+    }
+    .parent:nth-child(2) .child2 {
+      flex-basis: 20%;
+      background-color: #369925;
+    }
+
+    .parent:nth-child(3) .child1 {
+      flex-basis: 30%;
+      background-color: #356969
+    }
+    .parent:nth-child(3) .child2 {
+      flex-basis: auto;
+      background-color: #369925;
+    }
+
   </style>
 </head>
 <body>
-  <div id="parent">
-    <div id="child1">This is child 1</div>
-    <div id="child2">This is child 2This is child 2This is child 2This is child 2This is child 2This is child 2</div>
+  <div class="parent">
+    <div class="child1">100px</div>
+    <div class="child2">200px</div>
+  </div>
+  <div class="parent">
+    <div class="child1">10%</div>
+    <div class="child2">20%</div>
+  </div>
+  <div class="parent">
+    <div class="child1">30%</div>
+    <div class="child2">auto</div>
   </div>
 </body>
 </html>

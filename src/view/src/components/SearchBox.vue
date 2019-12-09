@@ -11,18 +11,16 @@ export default {
 </script>
 
 <style scoped>
-
 #search-box {
-  width: 100%;
+  flex: auto;
   margin-bottom: 0.8rem;
+  text-align: center;
 }
 
 #search-box input {
   width: 90%;
-  height: 30px;
-  display: block;
-  margin: auto;
-  padding-left: 10px;
+  height: 3rem;
+  padding-left: 1rem;
   border-radius: 3px;
   background-color: var(--mask-color);
 }

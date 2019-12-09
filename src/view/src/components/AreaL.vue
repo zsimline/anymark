@@ -1,5 +1,5 @@
 <template>
-  <div id="area-l" :style="{ width: myWidth }">
+  <div id="area-l" :style="{ 'flex-basis': myWidth }">
     <search-box></search-box>
     <msg-list></msg-list>
     <div class="split-line" @mousedown="resize"></div>
@@ -40,10 +40,15 @@ export default {
 
 <style>
 #area-l {
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   min-width: 26rem;
   max-width: 98rem;
   height: 100vh;
   padding: 0.8rem 0rem;
+  box-sizing: border-box;
   position: relative;
 }
 
@@ -60,5 +65,4 @@ export default {
   background-color: #AAA;
   background-clip: content-box;
 }
-
 </style>

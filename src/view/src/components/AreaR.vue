@@ -1,5 +1,5 @@
 <template>
-  <div id="chat-area">
+  <div id="area-r">
     <navigator></navigator>
     <msg-frame></msg-frame>
     <msg-toolkit></msg-toolkit>
@@ -21,13 +21,10 @@ export default {
 </script>
 
 <style>
-
-#chat-area {
+#area-r {
   flex: auto;
   display: flex;
   flex-direction: column;
   user-select: none;
 }
-
-
 </style>

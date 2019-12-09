@@ -1,6 +1,21 @@
 <template>
   <div id="msg-list">
     <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+        <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
+    <msg-box></msg-box>
   </div>
 </template>
 
@@ -16,8 +31,8 @@ export default {
 
 <style>
 #msg-list {
-  height: 100vh;
-  padding: 0.8rem 0rem;
+  flex: auto;
+  margin: 0.8rem 0rem;
   position: relative;
   overflow: hidden;
 }
