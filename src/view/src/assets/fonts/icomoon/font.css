@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?d1vrw6');
-  src:  url('fonts/icomoon.eot?d1vrw6#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?d1vrw6') format('truetype'),
-    url('fonts/icomoon.woff?d1vrw6') format('woff'),
-    url('fonts/icomoon.svg?d1vrw6#icomoon') format('svg');
+  src: url('fonts/icomoon.eot?d1vrw6');
+  src: url('fonts/icomoon.eot?d1vrw6#iefix') format('embedded-opentype'),
+   	   url('fonts/icomoon.ttf?d1vrw6') format('truetype'),
+       url('fonts/icomoon.woff?d1vrw6') format('woff'),
+	   url('fonts/icomoon.svg?d1vrw6#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -18,14 +18,13 @@ i {
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 1;
-
+  font-size: 24px;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-commad:before {
+.icon-command:before {
   content: "\e902";
   color: #515151;
 }

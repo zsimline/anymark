@@ -33,6 +33,7 @@ export default {
 body {
   margin: 0px;
   font-family: "WenQuanYi";
+  overflow: hidden;
 }
 
 .nochoose {
@@ -43,6 +44,15 @@ input {
   border: none;
   outline: none;
 }
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 0px;
+  background-color: #fff;
+}
+
 
 #app {
   display: flex;

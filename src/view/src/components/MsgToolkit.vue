@@ -1,20 +1,26 @@
 <template>
   <div id="msg-toolkit">
-    <div id="msg-input">
-      <div>{{ msg }}</div>
-      <textarea id="msg-input" placeholder="输入消息..." v-model="msg"></textarea>
-    </div> 
-    <button>哈哈哈哈哈哈</button>
+    <button class="btn-tool"><i class="icon-annex"></i></button>
+    <msg-input v-model="msg"></msg-input>
+    <button class="btn-tool"><i class="icon-command"></i></button>
+    <button class="btn-tool"><i class="icon-smile"></i></button>
+    <button class="btn-tool"><i class="icon-voice"></i></button>
   </div>
 </template>
 
 <script>
+import MsgInput from "./msg-toolkit/MsgInput.vue";
+
 export default {
   data: function() {
     return {
-      msg: ''
+      msg: '哈哈哈哈'
     }
-  }
+  },
+
+  components: {
+    MsgInput
+  },
 }
 </script>
 
@@ -23,47 +29,19 @@ export default {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  height: 8%;
   display: flex;
-}
-
-#msg-input {
-  flex: 0 0 80%;
-  position: relative;
-}
-
-#msg-input div,
-#msg-input textarea {
-  font-size:  var(--font-size);
-  line-height: calc(var(--font-size) + 4px);
-  padding: 1.5rem 0rem;
-}
-
-#msg-input div {
-  visibility: hidden;
-  max-height: 22rem;
-  overflow: hidden;
-}
-
-#msg-input textarea {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  padding-left: 8px;
+  border-left: solid 1px #DDDEEE;
   box-sizing: border-box;
-  outline: none;
-  border: none;
-  resize: none;
-}
-#msg-input textarea::-webkit-scrollbar {
-  display: none;
+  background-color: #fff;
 }
 
-button {
-  flex: 0 0 20%;
-  border:none;
-  padding: 0px;
+.btn-tool {
+  flex: 0 0 5rem;
+  height: 5rem;
+  padding: 1rem;
+  opacity: 0.8;
+}
+.btn-tool:hover {
+  opacity: 1;
 }
 </style>

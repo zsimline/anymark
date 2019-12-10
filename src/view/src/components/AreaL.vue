@@ -62,7 +62,7 @@ export default {
   z-index: 10;
   color: transparent;
   cursor: ew-resize;
-  background-color: #AAA;
+  background-color: transparent;
   background-clip: content-box;
 }
 </style>
