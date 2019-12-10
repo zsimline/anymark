@@ -20,7 +20,10 @@ export default {
 
 <style>
 #msg-toolkit {
-  flex: 1 0 auto;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 8%;
   display: flex;
 }
 

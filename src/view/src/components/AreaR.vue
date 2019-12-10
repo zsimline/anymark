@@ -26,5 +26,6 @@ export default {
   display: flex;
   flex-direction: column;
   user-select: none;
+  position: relative;
 }
 </style>
