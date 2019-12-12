@@ -1,6 +1,6 @@
 <template>
   <div id="msg-list">
-    <msg-box></msg-box>
+
   </div>
 </template>
 
