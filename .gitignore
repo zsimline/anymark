@@ -1,3 +1,7 @@
 src/node_modules
 src/view/node_modules
 src/view/dist
+src/package.json
+src/package-lock.json
+src/view/package.json
+src/view/package-lock.json
