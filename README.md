@@ -1,8 +1,8 @@
 # Mihan
-Tell us our secret
+Dodge damn surveillance
 
 # 密函
-说说我们的秘密
+躲避该死的监控
 
 
 **密函是通信工具而非社交工具**
