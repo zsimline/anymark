@@ -1,9 +1,0 @@
-server_opts:
-  host: 172.17.5.144
-  port: 1722
-  server: null
-  path: null
-  maxPayload: 104857600
-  handleProtocols: null
-  verifyClient: null
-  backlog: 128
